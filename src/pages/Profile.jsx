@@ -325,6 +325,7 @@ export default function ProfilePage({ username, go, toast }) {
             <FriendsPreview
               friends={friends}
               total={friendIds.length}
+              isSelf={isSelf}
               onSeeAll={() =>
                 setTab("amigos")
               }
@@ -335,13 +336,14 @@ export default function ProfilePage({ username, go, toast }) {
               communities={
                 userCommunities
               }
+              isSelf={isSelf}
               onSeeAll={() =>
                 setTab("comunidades")
               }
               go={go}
             />
 
-            <FansBox />
+            <FansBox isSelf={isSelf} />
 
             {isSelf && (
               <VisitorsBox
@@ -547,94 +549,12 @@ function ProfileHeader({
   setTab,
   onEdit,
 }) {
-  const status =
-    STATUS_OPTIONS.find((s) => s.v === user.status)?.label || "";
-
-  /* PERFIL DE OUTRA PESSOA — ORKUT CLÁSSICO */
-  if (!isSelf) {
-    return (
-      <section className="ork-classic-profile-header ork-visitor-header">
-        <div className="ork-visitor-name-row">
-          <h1>
-            {user.name}
-            {user.is_admin && (
-              <span className="ork-classic-admin-badge">
-                👑 admin
-              </span>
-            )}
-          </h1>
-        </div>
-
-        {user.bio && (
-          <div className="ork-visitor-bio">
-            {user.bio}
-          </div>
-        )}
-
-        <div className="ork-visitor-stats">
-          <VisitorStat
-            number={scrapCount}
-            label="recados"
-            icon="📝"
-            onClick={() => setTab("recados")}
-          />
-
-          <VisitorStat
-            number={photoCount}
-            label="fotos"
-            icon="📷"
-            onClick={() => setTab("fotos")}
-          />
-
-          <VisitorStat
-            number={0}
-            label="vídeos"
-            icon="🎬"
-            onClick={() => setTab("videos")}
-          />
-
-          <VisitorStat
-            number={0}
-            label="fãs"
-            icon="⭐"
-          />
-
-          <VisitorRating label="confiável" type="trust" />
-          <VisitorRating label="legal" type="cool" />
-          <VisitorRating label="sexy" type="sexy" />
-        </div>
-
-        <div className="ork-visitor-section-tab">
-          <button
-            type="button"
-            className={tab === "sobre" ? "active" : ""}
-            onClick={() => setTab("sobre")}
-          >
-            social
-          </button>
-        </div>
-      </section>
-    );
-  }
-
-  /* MEU PRÓPRIO PERFIL */
-  const tabs = [
-    ["sobre", "Sobre"],
-    ["recados", "Recados"],
-    ["fotos", "Fotos"],
-    ["videos", "Vídeos"],
-    ["depoimentos", "Depoimentos"],
-    ["amigos", "Amigos"],
-    ["comunidades", "Comunidades"],
-  ];
-
   return (
-    <section className="ork-classic-profile-header">
-      <div className="ork-classic-profile-title-row">
-        <div>
+    <section className="ork-classic-profile-header ork-visitor-header">
+      <div className="ork-visitor-name-row">
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "10px" }}>
           <h1>
             {user.name}
-
             {user.is_admin && (
               <span className="ork-classic-admin-badge">
                 👑 admin
@@ -642,47 +562,65 @@ function ProfileHeader({
             )}
           </h1>
 
-          {user.bio && (
-            <div className="ork-classic-profile-message">
-              {user.bio}
-            </div>
-          )}
-
-          {status && (
-            <div className="ork-classic-online-status">
-              {status}
-            </div>
+          {isSelf && (
+            <button
+              type="button"
+              className="ork-classic-edit-button"
+              onClick={onEdit}
+            >
+              ✏️ editar perfil
+            </button>
           )}
         </div>
+      </div>
 
+      {user.bio && (
+        <div className="ork-visitor-bio">
+          {user.bio}
+        </div>
+      )}
+
+      <div className="ork-visitor-stats">
+        <VisitorStat
+          number={scrapCount}
+          label="recados"
+          icon="📝"
+          onClick={() => setTab("recados")}
+        />
+
+        <VisitorStat
+          number={photoCount}
+          label="fotos"
+          icon="📷"
+          onClick={() => setTab("fotos")}
+        />
+
+        <VisitorStat
+          number={0}
+          label="vídeos"
+          icon="🎬"
+          onClick={() => setTab("videos")}
+        />
+
+        <VisitorStat
+          number={0}
+          label="fãs"
+          icon="⭐"
+        />
+
+        <VisitorRating label="confiável" type="trust" />
+        <VisitorRating label="legal" type="cool" />
+        <VisitorRating label="sexy" type="sexy" />
+      </div>
+
+      <div className="ork-visitor-section-tab">
         <button
-          className="ork-classic-edit-button"
-          onClick={onEdit}
+          type="button"
+          className={tab === "sobre" ? "active" : ""}
+          onClick={() => setTab("sobre")}
         >
-          ✏️ editar perfil
+          social
         </button>
-      </div>
-
-      <div className="ork-classic-counter-row">
-        <Counter number={scrapCount} label="recados" />
-        <Counter number={friendCount} label="amigos" />
-        <Counter number={photoCount} label="fotos" />
-        <Counter number={0} label="vídeos" />
-        <Counter number={testimonialCount} label="depoimentos" />
-        <Counter number={communityCount} label="comunidades" />
-      </div>
-
-      <div className="ork-classic-profile-tabs">
-        {tabs.map(([key, label]) => (
-          <button
-            type="button"
-            key={key}
-            className={tab === key ? "active" : ""}
-            onClick={() => setTab(key)}
-          >
-            {label}
-          </button>
-        ))}
       </div>
     </section>
   );
@@ -741,46 +679,58 @@ function SobreTab({
   isSelf,
   visitors,
 }) {
+  let age = null;
+
+  if (user.birthdate) {
+    const birth = new Date(user.birthdate + "T00:00:00");
+    const today = new Date();
+    age = today.getFullYear() - birth.getFullYear();
+
+    const birthdayPassed =
+      today.getMonth() > birth.getMonth() ||
+      (today.getMonth() === birth.getMonth() &&
+        today.getDate() >= birth.getDate());
+
+    if (!birthdayPassed) age -= 1;
+  }
+
   const rows = [
-    [
-      "quem sou eu:",
-      user.quem_sou_eu,
-    ],
-    [
-      "interesses:",
-      user.interesses,
-    ],
-    ["filmes:", user.filmes],
-    ["música:", user.musica],
-    ["livros:", user.livros],
-    ["esportes:", user.esportes],
-    [
-      "relacionamento:",
-      user.relacionamento,
-    ],
-    ["profissão:", user.profissao],
+    ["relacionamento:", user.relacionamento],
     [
       "aniversário:",
       user.birthdate
-        ? new Date(
-            user.birthdate +
-              "T00:00:00"
-          ).toLocaleDateString(
-            "pt-BR"
-          )
+        ? new Date(user.birthdate + "T00:00:00").toLocaleDateString("pt-BR")
         : null,
     ],
+    ["idade:", age !== null ? `${age} anos` : null],
+    ["interesses no orkut:", user.interesses],
+    ["quem sou eu:", user.quem_sou_eu],
+    ["filhos:", user.filhos],
+    ["etnia:", user.etnia],
+    ["humor:", user.humor],
+    ["orientação sexual:", user.orientacao_sexual],
+    ["estilo:", user.estilo],
+    ["fumo:", user.fumo],
+    ["bebo:", user.bebo],
+    ["animais de estimação:", user.animais_estimacao],
+    ["moro:", user.moro],
+    ["cidade natal:", user.cidade_natal],
+    ["página web:", user.pagina_web],
+    ["paixões:", user.paixoes],
+    ["esportes:", user.esportes],
+    ["atividades:", user.atividades],
+    ["profissão:", user.profissao],
+    ["filmes:", user.filmes],
+    ["música:", user.musica],
+    ["livros:", user.livros],
+    ["sexo:", user.sexo],
     [
       "local:",
-      [
-        user.city,
-        user.state,
-        user.country,
-      ]
+      [user.city, user.state, user.country]
         .filter(Boolean)
         .join(", "),
     ],
-  ].filter(([, value]) => value);
+  ].filter(([, value]) => value !== null && value !== undefined && value !== "");
 
   return (
     <>
@@ -1495,6 +1445,7 @@ function UpdatesTab({ user }) {
 function FriendsPreview({
   friends,
   total,
+  isSelf,
   onSeeAll,
   go,
 }) {
@@ -1502,7 +1453,7 @@ function FriendsPreview({
     <section className="ork-classic-right-box">
       <div className="ork-classic-right-title">
         <strong>
-          👥 meus amigos ({total})
+          👥 {isSelf ? "meus amigos" : "amigos"} ({total})
         </strong>
 
         <button
@@ -1554,6 +1505,7 @@ function FriendsPreview({
 
 function CommunitiesPreview({
   communities,
+  isSelf,
   onSeeAll,
   go,
 }) {
@@ -1561,7 +1513,7 @@ function CommunitiesPreview({
     <section className="ork-classic-right-box">
       <div className="ork-classic-right-title">
         <strong>
-          👥 minhas comunidades (
+          👥 {isSelf ? "minhas comunidades" : "comunidades"} (
           {communities.length})
         </strong>
 
@@ -1580,8 +1532,9 @@ function CommunitiesPreview({
           </div>
 
           <div>
-            Você ainda não participa
-            de comunidades.
+            {isSelf
+              ? "Você ainda não participa de comunidades."
+              : "Este usuário ainda não participa de comunidades."}
           </div>
         </div>
       ) : (
@@ -1628,12 +1581,12 @@ function CommunitiesPreview({
    DIREITA — FÃS
 ========================================================= */
 
-function FansBox() {
+function FansBox({ isSelf }) {
   return (
     <section className="ork-classic-right-box">
       <div className="ork-classic-right-title">
         <strong>
-          ⭐ meus fãs (0)
+          ⭐ {isSelf ? "meus fãs" : "fãs"} (0)
         </strong>
 
         <button type="button">
@@ -1769,7 +1722,7 @@ function ProfileActions({
             )
           }
         >
-          👥 adicionar como amigo
+          👥 + amigo
         </button>
       )}
 
@@ -1896,7 +1849,7 @@ function ProfileActions({
               )
             }
           >
-            📝 escrever recado
+            📝 enviar recado
           </button>
 
           <button
@@ -2167,10 +2120,21 @@ function EditProfileModal({
     ["city", "Cidade"],
     ["state", "Estado"],
     ["country", "País"],
-    [
-      "relacionamento",
-      "Relacionamento",
-    ],
+    ["relacionamento", "Relacionamento"],
+    ["sexo", "Sexo"],
+    ["filhos", "Filhos"],
+    ["etnia", "Etnia"],
+    ["humor", "Humor"],
+    ["orientacao_sexual", "Orientação sexual"],
+    ["estilo", "Estilo"],
+    ["fumo", "Fumo"],
+    ["bebo", "Bebo"],
+    ["animais_estimacao", "Animais de estimação"],
+    ["moro", "Moro"],
+    ["cidade_natal", "Cidade natal"],
+    ["pagina_web", "Página web"],
+    ["paixoes", "Paixões"],
+    ["atividades", "Atividades"],
     ["profissao", "Profissão"],
     ["interesses", "Interesses"],
     ["filmes", "Filmes"],
