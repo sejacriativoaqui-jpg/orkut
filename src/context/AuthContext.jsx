@@ -20,18 +20,59 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getSession().then(async ({ data }) => {
+  let mounted = true;
+
+  async function initAuth() {
+    try {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        console.error("Erro ao carregar sessão:", error);
+        return;
+      }
+
+      if (!mounted) return;
+
       setSession(data.session);
-      if (data.session?.user) await loadProfile(data.session.user.id);
-      setLoading(false);
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange(async (_event, newSession) => {
-      setSession(newSession);
-      if (newSession?.user) await loadProfile(newSession.user.id);
-      else { setProfile(null); setSettings(null); }
-    });
-    return () => sub.subscription.unsubscribe();
-  }, [loadProfile]);
+
+      if (data.session?.user) {
+        try {
+          await loadProfile(data.session.user.id);
+        } catch (error) {
+          console.error("Erro ao carregar perfil:", error);
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao iniciar autenticação:", error);
+    } finally {
+      if (mounted) setLoading(false);
+    }
+  }
+
+  initAuth();
+
+  const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    if (!mounted) return;
+
+    setSession(newSession);
+
+    if (newSession?.user) {
+      setTimeout(() => {
+        loadProfile(newSession.user.id).catch((error) => {
+          console.error("Erro ao carregar perfil:", error);
+        });
+      }, 0);
+    } else {
+      setProfile(null);
+      setSettings(null);
+    }
+  });
+
+  return () => {
+    mounted = false;
+    sub.subscription.unsubscribe();
+  };
+}, [loadProfile]);
 
   async function signUp({ name, username, email, password, birthdate, avatarFile }) {
     const errors = {};
