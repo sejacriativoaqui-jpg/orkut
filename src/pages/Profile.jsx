@@ -535,242 +535,89 @@ function ProfileCard({
    CABEÇALHO CENTRAL
 ========================================================= */
 
-function ProfileHeader({/* =========================================================
-   PERFIL VISITADO — ESTILO ORKUT ANTIGO
-========================================================= */
-
-.ork-visitor-header {
-  padding: 10px 10px 0;
-  border-radius: 5px 30px 0 0;
-}
-
-.ork-visitor-name-row h1 {
-  color: #222;
-  font-family: Arial, Verdana, sans-serif;
-  font-size: 23px;
-  font-weight: normal;
-  margin: 0 0 4px;
-}
-
-.ork-visitor-bio {
-  font-size: 10px;
-  color: #555;
-  margin: 3px 0 7px;
-}
-
-.ork-visitor-stats {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 13px;
-  min-height: 44px;
-  border-bottom: 1px solid #d4dce7;
-  padding-bottom: 5px;
-}
-
-.ork-visitor-stat {
-  background: transparent;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font-family: Verdana, Arial, sans-serif;
-  text-align: left;
-}
-
-.ork-visitor-stat-label,
-.ork-visitor-rating-label {
-  display: block;
-  color: #777;
-  font-size: 8px;
-  margin-bottom: 2px;
-}
-
-.ork-visitor-stat-bottom {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  color: #777;
-  font-size: 10px;
-}
-
-.ork-visitor-stat-bottom strong {
-  font-weight: normal;
-  color: #666;
-}
-
-.ork-visitor-stat:hover .ork-visitor-stat-label {
-  text-decoration: underline;
-  color: #1b5fa7;
-}
-
-/* confiável / legal / sexy */
-
-.ork-visitor-rating {
-  min-width: 48px;
-}
-
-.ork-visitor-rating-icons {
-  display: flex;
-  gap: 2px;
-}
-
-.ork-visitor-rating-icons i {
-  display: block;
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-  border: 1px solid rgba(0,0,0,.15);
-}
-
-.ork-visitor-rating.trust i {
-  background: #f4cf3f;
-}
-
-.ork-visitor-rating.cool i {
-  background: #a7d8ea;
-}
-
-.ork-visitor-rating.sexy i {
-  width: 13px;
-  height: 11px;
-  border-radius: 50% 50% 45% 45%;
-  background: #ef8fae;
-}
-
-/* aba SOCIAL */
-
-.ork-visitor-section-tab {
-  margin-top: 5px;
-}
-
-.ork-visitor-section-tab button {
-  border: 1px solid #7192b8;
-  border-bottom: 0;
-  background: #6990bc;
-  color: white;
-  padding: 4px 9px;
-  font: bold 9px Verdana, Arial, sans-serif;
-  cursor: pointer;
-}
-
-.ork-visitor-section-tab button.active {
-  background: #6990bc;
-  color: white;
-}
-
-/* =========================================================
-   PERFIL VISITADO: MAIS DENSO COMO O ORIGINAL
-========================================================= */
-
-.ork-classic-profile-grid:has(.ork-visitor-header) {
-  grid-template-columns: 165px minmax(500px, 1fr) 265px;
-  gap: 7px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-user-photo {
-  padding: 3px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-user-photo img {
-  max-height: 240px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-about-table {
-  margin: 0 7px 7px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-about-row {
-  grid-template-columns: 165px 1fr;
-  min-height: 24px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-about-label {
-  font-size: 10px;
-  padding: 4px 8px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-about-value {
-  font-size: 10px;
-  padding: 4px 8px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-box-title {
-  display: none;
-}
-
-/* amigos maiores no perfil visitado */
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-right-box {
-  padding: 7px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-right-title {
-  font-size: 12px;
-  color: #222;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-mini-grid {
-  gap: 5px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-mini-grid > button {
-  padding: 4px 2px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-mini-grid span {
-  font-size: 9px;
-  white-space: normal;
-  line-height: 1.25;
-}
-
-/* esquerda parecida com o perfil antigo */
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-user-card {
-  padding: 7px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-user-name {
-  font-size: 10px;
-  color: #34709e;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-user-location {
-  font-size: 9px;
-  line-height: 1.4;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-actions-box {
-  padding: 5px 7px;
-}
-
-.ork-classic-profile-grid:has(.ork-visitor-header)
-.ork-classic-actions-box > button {
-  font-size: 9px;
-  border-bottom: 1px solid #e3e9ef;
-  padding: 4px 2px;
-}
+function ProfileHeader({
+  user,
+  isSelf,
+  friendCount,
+  communityCount,
+  photoCount,
+  scrapCount,
+  testimonialCount,
+  tab,
+  setTab,
+  onEdit,
 }) {
   const status =
-    STATUS_OPTIONS.find(
-      (s) => s.v === user.status
-    )?.label || "";
+    STATUS_OPTIONS.find((s) => s.v === user.status)?.label || "";
 
+  /* PERFIL DE OUTRA PESSOA — ORKUT CLÁSSICO */
+  if (!isSelf) {
+    return (
+      <section className="ork-classic-profile-header ork-visitor-header">
+        <div className="ork-visitor-name-row">
+          <h1>
+            {user.name}
+            {user.is_admin && (
+              <span className="ork-classic-admin-badge">
+                👑 admin
+              </span>
+            )}
+          </h1>
+        </div>
+
+        {user.bio && (
+          <div className="ork-visitor-bio">
+            {user.bio}
+          </div>
+        )}
+
+        <div className="ork-visitor-stats">
+          <VisitorStat
+            number={scrapCount}
+            label="recados"
+            icon="📝"
+            onClick={() => setTab("recados")}
+          />
+
+          <VisitorStat
+            number={photoCount}
+            label="fotos"
+            icon="📷"
+            onClick={() => setTab("fotos")}
+          />
+
+          <VisitorStat
+            number={0}
+            label="vídeos"
+            icon="🎬"
+            onClick={() => setTab("videos")}
+          />
+
+          <VisitorStat
+            number={0}
+            label="fãs"
+            icon="⭐"
+          />
+
+          <VisitorRating label="confiável" type="trust" />
+          <VisitorRating label="legal" type="cool" />
+          <VisitorRating label="sexy" type="sexy" />
+        </div>
+
+        <div className="ork-visitor-section-tab">
+          <button
+            type="button"
+            className={tab === "sobre" ? "active" : ""}
+            onClick={() => setTab("sobre")}
+          >
+            social
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  /* MEU PRÓPRIO PERFIL */
   const tabs = [
     ["sobre", "Sobre"],
     ["recados", "Recados"],
@@ -787,6 +634,7 @@ function ProfileHeader({/* =====================================================
         <div>
           <h1>
             {user.name}
+
             {user.is_admin && (
               <span className="ork-classic-admin-badge">
                 👑 admin
@@ -807,46 +655,21 @@ function ProfileHeader({/* =====================================================
           )}
         </div>
 
-        {isSelf && (
-          <button
-            className="ork-classic-edit-button"
-            onClick={onEdit}
-          >
-            ✏️ editar perfil
-          </button>
-        )}
+        <button
+          className="ork-classic-edit-button"
+          onClick={onEdit}
+        >
+          ✏️ editar perfil
+        </button>
       </div>
 
       <div className="ork-classic-counter-row">
-        <Counter
-          number={scrapCount}
-          label="recados"
-        />
-
-        <Counter
-          number={friendCount}
-          label="amigos"
-        />
-
-        <Counter
-          number={photoCount}
-          label="fotos"
-        />
-
-        <Counter
-          number={0}
-          label="vídeos"
-        />
-
-        <Counter
-          number={testimonialCount}
-          label="depoimentos"
-        />
-
-        <Counter
-          number={communityCount}
-          label="comunidades"
-        />
+        <Counter number={scrapCount} label="recados" />
+        <Counter number={friendCount} label="amigos" />
+        <Counter number={photoCount} label="fotos" />
+        <Counter number={0} label="vídeos" />
+        <Counter number={testimonialCount} label="depoimentos" />
+        <Counter number={communityCount} label="comunidades" />
       </div>
 
       <div className="ork-classic-profile-tabs">
@@ -854,20 +677,49 @@ function ProfileHeader({/* =====================================================
           <button
             type="button"
             key={key}
-            className={
-              tab === key
-                ? "active"
-                : ""
-            }
-            onClick={() =>
-              setTab(key)
-            }
+            className={tab === key ? "active" : ""}
+            onClick={() => setTab(key)}
           >
             {label}
           </button>
         ))}
       </div>
     </section>
+  );
+}
+
+function VisitorStat({ number, label, icon, onClick }) {
+  return (
+    <button
+      type="button"
+      className="ork-visitor-stat"
+      onClick={onClick}
+    >
+      <span className="ork-visitor-stat-label">
+        {label}
+      </span>
+
+      <span className="ork-visitor-stat-bottom">
+        <span>{icon}</span>
+        <strong>{number}</strong>
+      </span>
+    </button>
+  );
+}
+
+function VisitorRating({ label, type }) {
+  return (
+    <div className={`ork-visitor-rating ${type}`}>
+      <span className="ork-visitor-rating-label">
+        {label}
+      </span>
+
+      <div className="ork-visitor-rating-icons">
+        <i />
+        <i />
+        <i />
+      </div>
+    </div>
   );
 }
 
