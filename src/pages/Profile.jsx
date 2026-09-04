@@ -325,6 +325,7 @@ export default function ProfilePage({ username, go, toast }) {
             <FriendsPreview
               friends={friends}
               total={friendIds.length}
+              isSelf={isSelf}
               onSeeAll={() =>
                 setTab("amigos")
               }
@@ -335,13 +336,14 @@ export default function ProfilePage({ username, go, toast }) {
               communities={
                 userCommunities
               }
+              isSelf={isSelf}
               onSeeAll={() =>
                 setTab("comunidades")
               }
               go={go}
             />
 
-            <FansBox />
+            <FansBox isSelf={isSelf} />
 
             {isSelf && (
               <VisitorsBox
@@ -741,46 +743,44 @@ function SobreTab({
   isSelf,
   visitors,
 }) {
+  let age = null;
+
+  if (user.birthdate) {
+    const birth = new Date(user.birthdate + "T00:00:00");
+    const today = new Date();
+    age = today.getFullYear() - birth.getFullYear();
+
+    const birthdayPassed =
+      today.getMonth() > birth.getMonth() ||
+      (today.getMonth() === birth.getMonth() &&
+        today.getDate() >= birth.getDate());
+
+    if (!birthdayPassed) age -= 1;
+  }
+
   const rows = [
+    ["relacionamento:", user.relacionamento],
     [
-      "quem sou eu:",
-      user.quem_sou_eu,
+      "aniversário:",
+      user.birthdate
+        ? new Date(user.birthdate + "T00:00:00").toLocaleDateString("pt-BR")
+        : null,
     ],
-    [
-      "interesses:",
-      user.interesses,
-    ],
+    ["idade:", age !== null ? `${age} anos` : null],
+    ["interesses no orkut:", user.interesses],
+    ["quem sou eu:", user.quem_sou_eu],
+    ["profissão:", user.profissao],
     ["filmes:", user.filmes],
     ["música:", user.musica],
     ["livros:", user.livros],
     ["esportes:", user.esportes],
     [
-      "relacionamento:",
-      user.relacionamento,
-    ],
-    ["profissão:", user.profissao],
-    [
-      "aniversário:",
-      user.birthdate
-        ? new Date(
-            user.birthdate +
-              "T00:00:00"
-          ).toLocaleDateString(
-            "pt-BR"
-          )
-        : null,
-    ],
-    [
       "local:",
-      [
-        user.city,
-        user.state,
-        user.country,
-      ]
+      [user.city, user.state, user.country]
         .filter(Boolean)
         .join(", "),
     ],
-  ].filter(([, value]) => value);
+  ].filter(([, value]) => value !== null && value !== undefined && value !== "");
 
   return (
     <>
@@ -1495,6 +1495,7 @@ function UpdatesTab({ user }) {
 function FriendsPreview({
   friends,
   total,
+  isSelf,
   onSeeAll,
   go,
 }) {
@@ -1502,7 +1503,7 @@ function FriendsPreview({
     <section className="ork-classic-right-box">
       <div className="ork-classic-right-title">
         <strong>
-          👥 meus amigos ({total})
+          👥 {isSelf ? "meus amigos" : "amigos"} ({total})
         </strong>
 
         <button
@@ -1554,6 +1555,7 @@ function FriendsPreview({
 
 function CommunitiesPreview({
   communities,
+  isSelf,
   onSeeAll,
   go,
 }) {
@@ -1561,7 +1563,7 @@ function CommunitiesPreview({
     <section className="ork-classic-right-box">
       <div className="ork-classic-right-title">
         <strong>
-          👥 minhas comunidades (
+          👥 {isSelf ? "minhas comunidades" : "comunidades"} (
           {communities.length})
         </strong>
 
@@ -1580,8 +1582,9 @@ function CommunitiesPreview({
           </div>
 
           <div>
-            Você ainda não participa
-            de comunidades.
+            {isSelf
+              ? "Você ainda não participa de comunidades."
+              : "Este usuário ainda não participa de comunidades."}
           </div>
         </div>
       ) : (
@@ -1628,12 +1631,12 @@ function CommunitiesPreview({
    DIREITA — FÃS
 ========================================================= */
 
-function FansBox() {
+function FansBox({ isSelf }) {
   return (
     <section className="ork-classic-right-box">
       <div className="ork-classic-right-title">
         <strong>
-          ⭐ meus fãs (0)
+          ⭐ {isSelf ? "meus fãs" : "fãs"} (0)
         </strong>
 
         <button type="button">
@@ -1769,7 +1772,7 @@ function ProfileActions({
             )
           }
         >
-          👥 adicionar como amigo
+          👥 + amigo
         </button>
       )}
 
@@ -1896,7 +1899,7 @@ function ProfileActions({
               )
             }
           >
-            📝 escrever recado
+            📝 enviar recado
           </button>
 
           <button
