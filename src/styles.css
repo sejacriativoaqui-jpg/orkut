@@ -1068,3 +1068,298 @@ textarea.ork-postbox {
   width: 62px;
   height: 62px;
 }
+
+
+/* =========================================================
+   ORKUT CLÁSSICO V3 — FIDELIDADE VISUAL AO PERFIL ANTIGO
+   Ajustes finais de proporção, densidade e acabamento
+========================================================= */
+
+/* ocupa melhor monitores modernos sem perder a sensação antiga */
+.ork-body {
+  max-width: 1500px;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 6px;
+  padding: 7px 8px 70px;
+}
+
+/* perfil mais largo e mais próximo do original */
+.ork-classic-profile-grid {
+  grid-template-columns: 185px minmax(560px, 1fr) 300px;
+  gap: 7px;
+}
+
+/* coluna esquerda mais compacta */
+.ork-classic-profile-left {
+  gap: 5px;
+}
+
+.ork-classic-user-card,
+.ork-classic-actions-box,
+.ork-classic-sidebox,
+.ork-classic-profile-header,
+.ork-classic-box,
+.ork-classic-right-box {
+  border-radius: 3px;
+  border-color: #b5c8dc;
+}
+
+.ork-classic-user-card,
+.ork-classic-actions-box,
+.ork-classic-sidebox,
+.ork-classic-right-box {
+  padding: 6px;
+}
+
+/* foto com presença maior */
+.ork-classic-user-photo {
+  padding: 3px;
+  border-color: #aebfd2;
+}
+
+.ork-classic-user-photo img {
+  max-height: 255px;
+}
+
+.ork-classic-user-name {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.ork-classic-user-mini-bio,
+.ork-classic-user-location {
+  font-size: 9px;
+}
+
+/* menu lateral mais "raiz" */
+.ork-classic-profile-menu button,
+.ork-classic-actions-box > button,
+.ork-classic-sidebox button {
+  padding: 4px 2px;
+  font-size: 9px;
+  border-bottom: 1px solid #e0e8f1;
+}
+
+.ork-classic-profile-menu button:last-child,
+.ork-classic-actions-box > button:last-child,
+.ork-classic-sidebox button:last-child {
+  border-bottom: 0;
+}
+
+/* cabeçalho central mais semelhante ao Orkut clássico */
+.ork-classic-profile-header {
+  padding: 9px 10px 0;
+  border-radius: 4px 28px 0 0;
+}
+
+.ork-classic-profile-title-row h1,
+.ork-visitor-name-row h1 {
+  font-size: 24px;
+  letter-spacing: -0.4px;
+  color: #202020;
+}
+
+.ork-classic-profile-message,
+.ork-visitor-bio {
+  font-size: 9px;
+}
+
+/* contadores próprios mais compactos */
+.ork-classic-counter-row {
+  margin-top: 8px;
+  min-height: 34px;
+}
+
+.ork-classic-counter {
+  min-width: 58px;
+  padding: 3px 9px;
+}
+
+.ork-classic-counter strong {
+  font-size: 11px;
+}
+
+.ork-classic-counter span {
+  font-size: 8px;
+}
+
+/* abas mais antigas, menos modernas */
+.ork-classic-profile-tabs {
+  margin-top: 5px;
+}
+
+.ork-classic-profile-tabs button {
+  padding: 4px 10px;
+  font-size: 8.5px;
+  border-color: #aebfd2;
+  background: #eef4fa;
+}
+
+.ork-classic-profile-tabs button.active {
+  color: #d93b8e;
+  background: #fff;
+}
+
+/* tabela social mais larga/densa */
+.ork-classic-about-table {
+  margin: 0;
+  border-top: 1px solid #c2d3e5;
+}
+
+.ork-classic-about-row {
+  grid-template-columns: 170px 1fr;
+  min-height: 28px;
+  align-items: center;
+}
+
+.ork-classic-about-label {
+  font-size: 10px;
+  padding: 5px 9px;
+  color: #68798b;
+}
+
+.ork-classic-about-value {
+  font-size: 10px;
+  padding: 5px 9px;
+  color: #3d454d;
+  line-height: 1.35;
+  font-weight: 500;
+}
+
+.ork-classic-about-row:nth-child(odd) {
+  background: #e7f1fb;
+}
+
+.ork-classic-about-row:nth-child(even) {
+  background: #d9e9f8;
+}
+
+/* caixa Sobre menos moderna */
+.ork-classic-box {
+  border-radius: 0;
+}
+
+.ork-classic-box-title {
+  padding: 6px 8px;
+  font-size: 10px;
+  border-bottom: 1px solid #d2deea;
+}
+
+/* área de fotos recentes mais parecida com bloco antigo */
+.ork-classic-placeholder-area {
+  margin: 0;
+  min-height: 92px;
+  padding: 24px;
+  background: #f5f8fb;
+  border-top: 0;
+}
+
+/* direita com densidade 3x3 mais clássica */
+.ork-classic-profile-right {
+  gap: 7px;
+}
+
+.ork-classic-right-box {
+  padding: 6px;
+}
+
+.ork-classic-right-title {
+  font: bold 12px Arial, Verdana, sans-serif;
+  color: #222;
+  border-bottom: 1px solid #d4dfe9;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.ork-classic-mini-grid {
+  gap: 5px;
+}
+
+.ork-classic-mini-grid > button {
+  background: #f1f1f1;
+  padding: 4px 3px 6px;
+}
+
+.ork-classic-mini-grid span {
+  font-size: 9px;
+  color: #2b689d;
+  line-height: 1.2;
+}
+
+.ork-classic-mini-community {
+  width: 70px;
+  height: 70px;
+}
+
+/* avatares maiores na coluna direita */
+.ork-classic-right-box .ork-mini-avatar,
+.ork-classic-right-box [class*="avatar"] {
+  width: 70px !important;
+  height: 70px !important;
+}
+
+/* perfil visitado ainda mais próximo da referência */
+.ork-classic-profile-grid:has(.ork-visitor-header) {
+  grid-template-columns: 175px minmax(590px, 1fr) 310px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-user-photo img {
+  max-height: 265px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-row {
+  grid-template-columns: 180px 1fr;
+  min-height: 29px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-visitor-stats {
+  gap: 10px;
+  padding-bottom: 4px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-visitor-rating {
+  min-width: 44px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-mini-community {
+  width: 72px;
+  height: 72px;
+}
+
+/* perfil próprio com aparência mais próxima do perfil clássico */
+.ork-classic-profile-grid:not(:has(.ork-visitor-header)) .ork-classic-profile-header {
+  border-radius: 4px 22px 0 0;
+}
+
+.ork-classic-profile-grid:not(:has(.ork-visitor-header)) .ork-classic-right-box {
+  border-radius: 4px;
+}
+
+/* reduz vazio visual em desktop largo */
+@media (min-width: 1400px) {
+  .ork-body {
+    max-width: 1560px;
+  }
+
+  .ork-classic-profile-grid {
+    grid-template-columns: 190px minmax(620px, 1fr) 320px;
+  }
+
+  .ork-classic-profile-grid:has(.ork-visitor-header) {
+    grid-template-columns: 180px minmax(650px, 1fr) 330px;
+  }
+}
+
+/* responsividade preservada */
+@media (max-width: 1100px) {
+  .ork-classic-profile-grid,
+  .ork-classic-profile-grid:has(.ork-visitor-header) {
+    grid-template-columns: 175px minmax(0, 1fr);
+  }
+
+  .ork-classic-profile-right {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
