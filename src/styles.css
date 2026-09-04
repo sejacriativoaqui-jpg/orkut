@@ -943,3 +943,128 @@ textarea.ork-postbox {
   .ork-classic-community-grid,
   .ork-classic-photo-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* =========================================================
+   ORKUT CLÁSSICO V2 — PERFIL VISITADO MAIS FIEL
+========================================================= */
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-profile-left {
+  gap: 5px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-user-card {
+  border-radius: 4px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-actions-box {
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+  padding: 5px 7px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-actions-box > button {
+  border-bottom: 1px solid #dbe5ef;
+  padding: 5px 2px;
+  font-size: 9px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-actions-box > button:last-of-type {
+  border-bottom: 0;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-profile-header {
+  border-radius: 5px 28px 0 0;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-box {
+  border-radius: 0;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-table {
+  margin: 0;
+  border-top: 1px solid #c8d8e9;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-row {
+  grid-template-columns: 175px 1fr;
+  min-height: 27px;
+  align-items: center;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-label {
+  text-align: right;
+  color: #68798b;
+  font-size: 10px;
+  padding: 5px 9px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-value {
+  color: #3e454d;
+  font-size: 10px;
+  padding: 5px 9px;
+  font-weight: 500;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-row:nth-child(odd) {
+  background: #e7f1fb;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-about-row:nth-child(even) {
+  background: #d9e9f8;
+}
+
+.ork-visitor-name-row h1 {
+  letter-spacing: -0.2px;
+}
+
+.ork-visitor-stats {
+  gap: 12px;
+}
+
+.ork-visitor-stat-label,
+.ork-visitor-rating-label {
+  font-size: 8px;
+}
+
+.ork-visitor-stat-bottom {
+  font-size: 9px;
+}
+
+.ork-visitor-section-tab {
+  margin-top: 6px;
+  margin-left: -1px;
+}
+
+.ork-visitor-section-tab button {
+  min-width: 48px;
+  text-align: left;
+  background: #6c95c1;
+  border-color: #557da9;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-right-box {
+  border-radius: 5px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-right-title {
+  font: bold 12px Arial, Verdana, sans-serif;
+  color: #222;
+  border-bottom: 1px solid #d6e0ea;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-mini-grid > button {
+  background: #f2f2f2;
+  padding: 4px 2px 6px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-mini-grid span {
+  color: #2d689d;
+  font-size: 9px;
+}
+
+.ork-classic-profile-grid:has(.ork-visitor-header) .ork-classic-mini-community {
+  width: 62px;
+  height: 62px;
+}
